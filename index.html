@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Telus Demo!</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <br>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+      <h1 class="text-center">TELUS MOBILITY SAMSUNG 9+ PRICE PAGE</h1>
+    </div>
+
+    <div class="row">
+
+      <!-- Sign-Up Card-->
+      <div class="col-lg-6">
+        <div class="card card-default">
+          <div class="card-heading">
+            <h3 class="card-title">New Plan Prices</h3>
+          </div>
+          <div class="card-body">
+
+            <!-- Sign-up Form (note the various input "types")-->
+            <form role="form">
+              <div class="form-group row">
+                <label for="premiumPlus-input">Premium +:</label>
+                <input class="form-control" id="premiumPlus-input" type="number">
+              </div>
+              <div class="form-group row">
+                <label for="premium-input">Premium:</label>
+                <input class="form-control" id="premium-input" type="number">
+              </div>
+              <div class="form-group row">
+                <label for="standard-input">Standard :</label>
+                <input class="form-control" id="standard-input" type="number">
+              </div>
+              <div class="form-group row">
+                <label for="retail-input">Retail</label>
+                <input class="form-control" id="retail-input" type ="number">
+              </div>
+              <button class="btn btn-default" id="add-plans" type="submit">Add Plans</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Most Recent Plan Card -->
+      <div class="col-lg-6">
+        <div class="card card-default">
+          <div class="card-heading">
+            <h3 class="card-title">Latest Plan Details</h3>
+          </div>
+          <div class="card-body" id="recent-plan">
+            <h2 id="premiumPlus-display">Premium +</h2>
+            <h4 id="premium-display">Premium</h4>
+            <h4 id="standard-display">Standard</h4>
+            <p id="retail-display">Retail.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- jQuery -->.
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+  <!-- Script -->.
+  <script>
+    // NOTE: In order to modify cookies, we must access them over a secure connection e.i = https, localhost:.
+    // Needed to create this function to readCookies. Essentially it splits up the cookie list
+    // See the working app at http://cookie-example-rcb.herokuapp.com/ or by opening with Firefox or Safari
+    function readCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) {
+          return c.substring(nameEQ.length, c.length);
+        }
+      }
+      return null;
+    }
+
+    // Capture Button Click
+    $("#add-plans").on("click", function(event) {
+      event.preventDefault();
+
+      // Capture User Inputs and store into variables
+      var premiumPlus = $("#premiumPlus-input").val().trim();
+      var premium = $("#premium-input").val().trim();
+      var standard = $("#standard-input").val().trim();
+      var retail = $("#retail-input").val().trim();
+
+      // Console log each of the user inputs to confirm we are receiving them
+      console.log(premiumPlus);
+      console.log(premium);
+      console.log(standard);
+      console.log(retail);
+
+      // Output all of the new information into the relevant sections
+      $("#premiumPlus-display").text("Premium + =:" + premiumPlus);
+      $("#premium-display").text("Premium =:" + premium);
+      $("#standard-display").text("Standard =:" + standard);
+      $("#retail-display").text("Retail =" + retail);
+
+
+      // Clear the previous cookie by setting it it equal to nothing and its expiration date to a past time
+      document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+      // Store all of the parameters as part of the cookie string
+      document.cookie = "premium+=" + premiumPlus;
+      document.cookie = "premium=" + premium;
+      document.cookie = "standard=" + standard;
+      document.cookie = "retail=" + retail;
+
+      // Print all the cookies
+      console.log(document.cookie);
+
+      // Recover the parameters by passing the cookie parameters of interest,
+      // through a function that breaks the document.cookie
+      var cookiePremiumPlus = readCookie("premium+");
+      var cookiePremium = readCookie("premium");
+      var cookieStandard = readCookie("standard");
+      var cookieRetail= readCookie("retail");
+
+      // Log all of the cookies to test
+      console.log(cookiePremiumPlus);
+      console.log(cookiePremium);
+      console.log(cookieStandard);
+      console.log(cookieRetail);
+    });
+
+    // By default display the content from the cookieString
+    $("#premiumPlus-display").text(readCookie("premium+"));
+    $("#premium-display").text(readCookie("premium"));
+    $("#standard-display").text(readCookie("standard"));
+    $("#retail-display").text(readCookie("retail"));
+
+
+
+      
+  </script>
+
+</body>
+
+</html>
