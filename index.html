@@ -36,9 +36,13 @@
             <!-- Sign-up Form (note the various input "types")-->
             <form role="form">
               <div class="form-group row">
-                <label for="premiumPlus-input">Premium +:</label>
-                <input class="form-control" id="premiumPlus-input" type="number">
+                <label for="premiumPlus-input">Platinum :</label>
+                <input class="form-control" id="platinum-input" type="number">
               </div>
+              <div class="form-group row">
+                    <label for="premiumPlus-input">Premium +:</label>
+                    <input class="form-control" id="premiumPlus-input" type="number">
+                  </div>
               <div class="form-group row">
                 <label for="premium-input">Premium:</label>
                 <input class="form-control" id="premium-input" type="number">
@@ -64,10 +68,11 @@
             <h3 class="card-title">Latest Plan Details</h3>
           </div>
           <div class="card-body" id="recent-plan">
-            <h2 id="premiumPlus-display">Premium +</h2>
+            <h4 id="platinum-display">Platinum</h2>
+            <h4 id="premiumPlus-display">Premium +</h2>
             <h4 id="premium-display">Premium</h4>
             <h4 id="standard-display">Standard</h4>
-            <p id="retail-display">Retail.</p>
+            <h4 id="retail-display">Retail.</p>
           </div>
         </div>
       </div>
@@ -102,18 +107,21 @@
       event.preventDefault();
 
       // Capture User Inputs and store into variables
+      var platinum = $("#platinum-input").val().trim();
       var premiumPlus = $("#premiumPlus-input").val().trim();
       var premium = $("#premium-input").val().trim();
       var standard = $("#standard-input").val().trim();
       var retail = $("#retail-input").val().trim();
 
       // Console log each of the user inputs to confirm we are receiving them
+      console.log(platinum);
       console.log(premiumPlus);
       console.log(premium);
       console.log(standard);
       console.log(retail);
 
       // Output all of the new information into the relevant sections
+      $("#platinum-display").text("Platinum =:" + platinum);
       $("#premiumPlus-display").text("Premium + =:" + premiumPlus);
       $("#premium-display").text("Premium =:" + premium);
       $("#standard-display").text("Standard =:" + standard);
@@ -124,6 +132,7 @@
       document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
       // Store all of the parameters as part of the cookie string
+      document.cookie = "platinum=" + platinum;
       document.cookie = "premium+=" + premiumPlus;
       document.cookie = "premium=" + premium;
       document.cookie = "standard=" + standard;
@@ -134,12 +143,14 @@
 
       // Recover the parameters by passing the cookie parameters of interest,
       // through a function that breaks the document.cookie
+      var cookiePlatinum = readCookie("platinum");
       var cookiePremiumPlus = readCookie("premium+");
       var cookiePremium = readCookie("premium");
       var cookieStandard = readCookie("standard");
       var cookieRetail= readCookie("retail");
 
       // Log all of the cookies to test
+      console.log(cookiePlatinum);
       console.log(cookiePremiumPlus);
       console.log(cookiePremium);
       console.log(cookieStandard);
@@ -147,6 +158,7 @@
     });
 
     // By default display the content from the cookieString
+    $("#platinum-display").text(readCookie("platinum"));
     $("#premiumPlus-display").text(readCookie("premium+"));
     $("#premium-display").text(readCookie("premium"));
     $("#standard-display").text(readCookie("standard"));
